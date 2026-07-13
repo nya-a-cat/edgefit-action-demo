@@ -36,8 +36,8 @@ exit status after publishing the evidence.
 
 | Path | Expected result | Evidence |
 | --- | --- | --- |
-| Reference model | Pass | [PR #1](https://github.com/nya-a-cat/edgefit-action-demo/pull/1) |
-| Larger-shape model with the same graph and target | Activation-budget failure | [PR #2](https://github.com/nya-a-cat/edgefit-action-demo/pull/2) |
+| Reference model | Pass | [PR #1](https://github.com/nya-a-cat/edgefit-action-demo/pull/1) · [run 29223576823](https://github.com/nya-a-cat/edgefit-action-demo/actions/runs/29223576823) |
+| Larger-shape model with the same graph and target | Activation-budget failure | [PR #2](https://github.com/nya-a-cat/edgefit-action-demo/pull/2) · [run 29223712404](https://github.com/nya-a-cat/edgefit-action-demo/actions/runs/29223712404) |
 
 The failure changes only the committed model shape. The target profile remains
 unchanged, so the result demonstrates a model-budget regression instead of a

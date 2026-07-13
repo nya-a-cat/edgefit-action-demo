@@ -2,8 +2,8 @@
 
 ## Important and Urgent
 
-- [ ] Retain a passing pull-request run from the published EdgeFit Action.
-- [ ] Retain a model-only activation-budget regression run with the same target.
+- [x] Retain a passing pull-request run from the published EdgeFit Action.
+- [x] Retain a model-only activation-budget regression run with the same target.
 
 ## Important but Not Urgent
 
