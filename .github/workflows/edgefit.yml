@@ -1,0 +1,43 @@
+name: EdgeFit reference consumer
+
+on:
+  pull_request:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  deployment-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the consumer repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Run the published EdgeFit Action
+        uses: nya-a-cat/edgefit@e80591f5e95503142f40396e9706f41309023c90 # v0.5.0-alpha.1
+        with:
+          model: models/model.onnx
+          target: targets/ort-mobile-cpu.yaml
+          report: edgefit.sarif
+          summary: edgefit-summary.md
+
+      # EdgeFit 的退出状态不能阻止失败证据被保留下来。
+      - name: Upload SARIF to code scanning
+        if: ${{ always() && hashFiles('edgefit.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@99df26d4f13ea111d4ec1a7dddef6063f76b97e9 # v4
+        with:
+          sarif_file: edgefit.sarif
+          category: edgefit-reference-consumer
+
+      - name: Retain EdgeFit evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: edgefit-reference-evidence-pr-${{ github.event.pull_request.number }}
+          path: |
+            edgefit.sarif
+            edgefit-summary.md
+          if-no-files-found: error
+          retention-days: 30
